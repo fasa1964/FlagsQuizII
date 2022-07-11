@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="60"
+   height="60"
+   viewBox="0 0 15.875 15.875"
+   version="1.1"
+   id="svg827"
+   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
+   sodipodi:docname="3Points.svg"
+   inkscape:export-filename="D:\Fasa\Saved Pictures\Saved Pictures\3Points.png"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview829"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="mm"
+     showgrid="false"
+     units="px"
+     width="128px"
+     inkscape:zoom="12.443434"
+     inkscape:cx="32.42674"
+     inkscape:cy="27.323647"
+     inkscape:window-width="1782"
+     inkscape:window-height="1072"
+     inkscape:window-x="2272"
+     inkscape:window-y="159"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs824" />
+  <g
+     inkscape:label="Ebene 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <ellipse
+       style="fill:#0080ff;stroke:#0080ff;stroke-width:0.847;stroke-linecap:round;paint-order:stroke markers fill;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
+       id="path910"
+       cx="8.0562487"
+       cy="2.7645838"
+       rx="1.8764585"
+       ry="1.8764606" />
+    <ellipse
+       style="fill:#0080ff;stroke:#0080ff;stroke-width:0.847;stroke-linecap:round;paint-order:stroke markers fill;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
+       id="path910-8"
+       cx="8.0562487"
+       cy="8.0562506"
+       rx="1.8764585"
+       ry="1.8764606" />
+    <ellipse
+       style="fill:#0080ff;stroke:#0080ff;stroke-width:0.847;stroke-linecap:round;paint-order:stroke markers fill;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
+       id="path910-8-5"
+       cx="8.0562487"
+       cy="13.083334"
+       rx="1.8764585"
+       ry="1.8764606" />
+  </g>
+</svg>
