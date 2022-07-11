@@ -37,6 +37,8 @@ qt_add_qml_module(appFlagsQuizII
         images/3Points.svg
         images/Info.svg
         images/Settings.svg
+        images/GMenu.svg
+        images/quit.png
 )
 
 set_target_properties(appFlagsQuizII PROPERTIES

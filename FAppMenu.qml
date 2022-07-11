@@ -68,12 +68,12 @@ Rectangle {
             sourceimage: "images/Settings.svg"
             onSelect: {  }
         }
-        FButton{
+        FAnimButton{
             id: gameBtn
             width: parent.width/4 - margin
             height: parent.height-8
-            buttontext: qsTr("Gamemenu")
-            buttoncolor: "transparent"
+            buttontext: qsTr("Menu")
+            sourceimage: "images/GMenu.svg"
             onSelect: {
 
                 gamepage.closeGame()
@@ -82,12 +82,12 @@ Rectangle {
             }
         }
 
-        FButton{
+        FAnimButton{
             id: quitBtn
             width: parent.width/4 - margin
             height: parent.height-8
             buttontext: qsTr("Quit")
-            buttoncolor: "transparent"
+            sourceimage: "images/quit.png"
             onSelect: { Qt.quit() }
         }
     }
