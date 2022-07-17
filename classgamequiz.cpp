@@ -196,7 +196,11 @@ bool ClassGameQuiz::isSolution(const QString &key)
 void ClassGameQuiz::nextQuestion()
 {
 
-    QString solution = generateQuestion();
+    QString solution = alterGenerateQuestion();
+
+    if(gameType() != "Capitals" && languageKey() != "ENG" )
+            solution = translate( solution );
+
     setSolution(solution);
 
     generateAnswers();
@@ -208,10 +212,11 @@ void ClassGameQuiz::startGame(const QString &type)
 {
     // clean randomlist
     randomNrList.clear();
+    answerMap.clear();
     questionCounter = 0;
 
     m_gameType = type;
-    nextQuestion();
+    //nextQuestion();
 }
 
 void ClassGameQuiz::setJoker50()
@@ -334,7 +339,7 @@ QString ClassGameQuiz::generateQuestion()
         key = codesMap.keys().at(nr);
         value = codesMap.value(key);
 
-        value = translate(value, languageKey());
+        //value = translate(value, languageKey()); //
 
         solution = value;
         setQuestion( flagsMap.value(key) );
@@ -346,7 +351,7 @@ QString ClassGameQuiz::generateQuestion()
         key = getCountrieCode(value);
         solution = capitalsMap.value(value);
 
-        value = translate(value, languageKey());
+        //value = translate(value, languageKey());
 
         setQuestion( value );
         QString cflag = flagsMap.value( key );
@@ -358,22 +363,101 @@ QString ClassGameQuiz::generateQuestion()
     {
 
         key = codesMap.keys().at(nr);
-
         value = codesMap.value(key);
 
         QStringList borderList =  bordersMap.value(value).toStringList();
         if(borderList.isEmpty()) // looks like island
-            setSolution( "None");
+            solution = "None";
         else{
-            foreach(QString k, borderList){
-                qDebug() << getCountrie(k);
 
-            }
+            int nr = getRandomNr(borderList.size());
+            solution =  getCountrie( borderList.at(nr) );
+
+//            foreach(QString k, borderList){
+//                qDebug() << getCountrie(k);
+//            }
         }
 
 
-        value = translate(value, languageKey());
+        value = translate( value );
         setQuestion( value );
+    }
+
+    return solution;
+}
+
+
+// Returns the solution of questions
+QString ClassGameQuiz::alterGenerateQuestion()
+{
+    QString solution;
+
+    int size = 0;
+
+    if(gameType() == "Flags" || gameType() == "Borders")
+        size = codesMap.count();
+
+    if(gameType() == "Capitals")
+        size = capitalsMap.count();
+
+    int nr = getRandomNr( size );
+    while(randomNrList.contains(nr)){
+        nr = getRandomNr( size );
+    }
+
+    randomNrList << nr;
+
+    QString key = "";
+    QString countrie = "";
+
+    if(gameType() == "Flags")
+    {
+        key = codesMap.keys().at(nr);
+        countrie =  codesMap.value(key);
+        QString flagPath = flagsMap.value(key);
+
+        solution = countrie;
+        setQuestion( flagPath );
+
+    }
+
+    if(gameType() == "Borders")
+    {
+        key = codesMap.keys().at(nr);
+        countrie =  codesMap.value(key);
+        QStringList borders = getBorders(key);
+        if(borders.isEmpty())
+            solution = "None";
+        else{
+
+            int pos = getRandomNr(borders.size());
+            solution = borders.at(pos);
+        }
+
+        QString flagPath = flagsMap.value(key);
+        setCurrentFlag(flagPath);
+
+        // Test
+        if(languageKey() != "ENG")
+            countrie = translate( countrie );
+
+
+        setQuestion(countrie);
+
+    }
+
+    if(gameType() == "Capitals")
+    {
+        countrie = capitalsMap.keys().at(nr);
+        key = codesMap.key(countrie);
+        QString capital =  capitalsMap.value(countrie);
+        solution = capital;
+
+        QString flagPath = flagsMap.value(key);
+        setCurrentFlag(flagPath);
+
+        setQuestion(countrie);
+
     }
 
     return solution;
@@ -392,16 +476,83 @@ void ClassGameQuiz::generateAnswers()
 
     if(gameType() == "Borders"){
         size =  codesMap.size();
-        return;
+        //qDebug() << "Solution: " << solution();
     }
 
 
+    // Other way
+    // Get the current countrie key wich stores in function question
+    QString questionKey = getCountrieCode( question() );
+    QStringList bordersList = getBorders( questionKey );
+
+//    qDebug() << "Lösung : "  << solution();
+//    qDebug() << "Lösung : "  << translate( solution(), languageKey() );
+//    qDebug() << "Borders of : "  << question();
+
+//    foreach(QString k, bordersList){
+//        qDebug() << "Borders:"  << translate( k , languageKey()) ;
+//    }
+
+
+    QStringList possibleAnswerList;
+    while (answerNrList.size() <= 2) {
+        int nr = getRandomNr( size );
+
+
+        if(!randomNrList.contains(nr)){
+            answerNrList << nr;
+
+            QString c = codesMap.value(  codesMap.keys().at(nr) );
+            if(!bordersList.contains(c))
+               possibleAnswerList << translate( c )  ;
+            else
+              answerNrList.removeLast();
+
+            QString ct =  translate( c );
+            //qDebug() << translate( c , languageKey() );
+
+        }
+
+
+
+
+
+
+        // possible answers
+
+
+
+//        QString currentCountrie = getCountrie( codesMap.keys().at(nr) );
+//        QString currentKey = codesMap.keys().at(nr);
+//        QStringList borders = getBorders( currentKey );
+
+        //qDebug()<< borders;
+        //qDebug()<< question();
+        //qDebug()<< answerNrList.count() << ":" << nr << ":" << getCountrie( codesMap.keys().at(nr)  );
+
+
+//        if(randomNrList.contains(nr))
+//            answerNrList.removeLast();
+
+    }
+
+
+    qDebug() << "---------------------------";
+    qDebug() << "Possible answers:";
+    foreach(QString k, possibleAnswerList){
+        qDebug() << k ;
+    }
+    qDebug() << "Lösung: " << solution();
+    qDebug() << "---------------------------";
+
+    // Is working accept for gametype capitals
     for(int i = 0; i < 3; i++){
         int nr = getRandomNr( size );
         while(randomNrList.contains(nr)){
             nr = getRandomNr( size );
         }
-        randomNrList << nr;
+        //qDebug() << i;
+        randomNrList << nr; // it's a global list
         answerNrList << nr;
     }
 
@@ -413,7 +564,10 @@ void ClassGameQuiz::generateAnswers()
         QString key = codesMap.keys().at(answerNrList.at(l));
 
         if(gameType() == "Flags")
-            answers <<  translate( codesMap.value( key ), languageKey());
+            answers <<  translate( codesMap.value( key ) );
+
+        if(gameType() == "Borders")
+            answers <<  translate( codesMap.value( key ) );
 
         if(gameType() == "Capitals")
             answers << capitalsMap.value( codesMap.value( key )  );
@@ -512,7 +666,40 @@ QStringList ClassGameQuiz::getIslands()
 
 QString ClassGameQuiz::getCountrieCode(const QString &countrie)
 {
-    QString key = codesMap.key(countrie);
+
+    QString c = countrie;
+    if(languageKey() != "ENG"){
+
+      //QMap<QString, QMap<QString, QVariant>> translationMap;
+
+      // qDebug() << "Searching for:" << c;
+
+       // key = countrie in englisch, map = key, translated string
+       QMapIterator<QString, QMap<QString, QVariant>> it(translationMap);
+       while (it.hasNext()) {
+           it.next();
+
+           //
+           QMapIterator<QString, QVariant> i( it.value() );
+           while (i.hasNext()) {
+               i.next();
+
+               // compare the countries name
+               if(i.value().toString() == c && i.key() == languageKey() ) {
+
+//                   qDebug() << "Countrie in english: " << it.key();
+//                   qDebug() << "Countrie key: " <<  codesMap.key( it.key() );
+                   return codesMap.key( it.key() );
+                }
+
+           }
+
+       }
+
+    }
+
+
+    QString key = codesMap.key(c);
     return key;
 }
 
@@ -538,6 +725,9 @@ QStringList ClassGameQuiz::getBorders(const QString &key)
     QStringList list;
     QString c = getCountrie(key);
 
+    // check if key is a key or a 
+    
+    
     QStringList vlk = bordersMap.value(c).toStringList();
 
     QStringList keyList;
@@ -567,17 +757,22 @@ QStringList ClassGameQuiz::getCountriesContinent(const QString &continent)
     return cList;
 }
 
-QString ClassGameQuiz::translate(const QString &source, const QString &key)
+QString ClassGameQuiz::translate(const QString &source)
 {
     QString translationString = "";
 
-    QString nk = key;
-    if(nk.size() <= 2)
-        nk = alphaMap.value(key);
+    if(source == "None")
+        return source;
+
+    if(!codesMap.values().contains(source))
+        qDebug() << "Source already translated: " << source;
+
 
     QMap<QString, QVariant> vmap = translationMap.value(source);
-    translationString = vmap.value(nk).toString().toUtf8();
+    translationString = vmap.value(languageKey()).toString().toUtf8();
 
+    if(translationString.isEmpty())
+        return "No translation";
 
     return translationString;
 }
@@ -596,10 +791,6 @@ QString ClassGameQuiz::createKey(const QString &c)
     return key;
 }
 
-QString ClassGameQuiz::getKeyAtPos(const QMap<QString, QString> &map, int pos)
-{
-
-}
 
 void ClassGameQuiz::createFlagsMap()
 {
@@ -704,14 +895,21 @@ void ClassGameQuiz::createGameData()
         bordersMap.insert(name, borders);
         continentCodeMap.insert( createKey(continent), continent );
 
-        QStringList keyList = obj.value("translations").toObject().keys();
 
+
+        // For translation in another language
+        QStringList keyList = obj.value("translations").toObject().keys();      // get all keys for translation
+        //qDebug() << keyList;
 
         QMap<QString, QVariant> tmap;
         foreach(auto &k, keyList){
+            // translated string
             QString trans = obj.value("translations").toObject().value(k).toObject().value("common").toString().toUtf8();
             tmap.insert(k.toUpper(), trans);
         }
+
+        // insert the englisch key witdt translated countrie name
+        tmap.insert("ENG", name);
 
         translationMap.insert(name, tmap);
 

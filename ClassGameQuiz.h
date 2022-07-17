@@ -132,7 +132,9 @@ private:
     // For questions and answer's
     int getRandomNr(int max);
     QString generateQuestion();
+    QString alterGenerateQuestion();
     void generateAnswers();
+
 
 
     QString getSolutionContinent();
@@ -143,10 +145,10 @@ private:
     QString getCapital(const QString &key);
     QStringList getBorders(const QString &key);
     QStringList getCountriesContinent(const QString &continent);
-    QString translate(const QString &source, const QString &key);
+    QString translate(const QString &source);
 
     QString createKey(const QString &c);
-    QString getKeyAtPos(const QMap<QString, QString>&map, int pos);
+
 
     void createFlagsMap();
     bool fileExist(const QString &filename);
