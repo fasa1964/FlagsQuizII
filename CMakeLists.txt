@@ -28,6 +28,7 @@ qt_add_qml_module(appFlagsQuizII
         GameMenu.qml
         FQuestionBox.qml
         FGamePage.qml
+        FBonus.qml
     RESOURCES
         images/Joker50.png
         images/JokerTel.png

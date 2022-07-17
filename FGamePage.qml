@@ -43,6 +43,14 @@ Rectangle{
     function closeGame(){  close.start() }
 
 
+    function bonusAnimate(){
+        bonus.startAnimate()
+    }
+
+    function bonusClearAnimate(){
+        bonus.closeAnimate()
+    }
+
     // timecounter for questions
     function timeout(){
 
@@ -89,6 +97,12 @@ Rectangle{
          to: parent.width
          easing.type: Easing.InOutQuad
          onStopped: { gamepage.visible = false }
+    }
+
+
+    // bouns qml
+    FBonus{
+        id: bonus
     }
 
     // Position the jokers
@@ -169,6 +183,7 @@ Rectangle{
             anchors.topMargin: 15
             visible: gametype === "Capitals" ? true : false
         }
+
         Text {
             id: borderquestion
             text: qsTr("Border of")
@@ -178,26 +193,32 @@ Rectangle{
             anchors.topMargin: 15
             visible: gametype === "Borders" ? true : false
         }
+        // Showing when gametype "Capitals"
         Text {
             id: cquestion
+            width: parent.width
+            height: parent.height
             text: game.question
-            font.pointSize: 18
+            font.pointSize: 20
             font.bold: true
-            color: "steelblue"
-            anchors.horizontalCenter: parent.horizontalCenter
-            anchors.top:  capitalquestion.bottom
-            anchors.topMargin: 18
+            color: "blue"
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignVCenter
+            wrapMode: Text.WordWrap
             visible: gametype === "Capitals" ? true : false
         }
+        // Showing when gametype "Borders"
         Text {
             id: bquestion
+            width: parent.width
+            height: parent.height
             text: game.question
-            font.pointSize: 18
+            font.pointSize: 20
             font.bold: true
-            color: "steelblue"
-            anchors.horizontalCenter: parent.horizontalCenter
-            anchors.top:  capitalquestion.bottom
-            anchors.topMargin: 18
+            color: "blue"
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignVCenter
+            wrapMode: Text.WordWrap
             visible: gametype === "Borders" ? true : false
         }
    }
