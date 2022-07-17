@@ -16,7 +16,6 @@ Window {
 
     property int points: 0
 
-
     function startGame(){
 
         questioncounter = 0
@@ -31,6 +30,7 @@ Window {
 
         if(answer === game.solution){
             points += 10
+            gamepage.bonusAnimate()
         }
     }
 
@@ -42,6 +42,7 @@ Window {
         gamepage.stopBlink();
         gamepage.startTimer();
         questioncounter++;
+
     }
 
     // For image off and on
@@ -52,6 +53,8 @@ Window {
     function imageOn(){
         on.start();
     }
+
+    // Create bonus object
 
 
     OpacityAnimator on opacity {
@@ -189,6 +192,18 @@ Window {
 
     }
 
+    Item{
+        id: container
+
+        Component.onCompleted: {
+            var item = Qt.createComponent("FBonus.qml")
+            for(var i = 0; i < 5; i++){
+                var object = item.createObject(container)
+
+            }
+
+        }
+    }
 
     Component.onCompleted: {
 
@@ -211,6 +226,9 @@ Window {
 
 
         imageOn()
+
+
+
 
     }
 

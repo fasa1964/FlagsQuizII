@@ -19,6 +19,8 @@ Rectangle{
     property bool down: false
     property bool blinking: false
 
+    // Test for animation when entered and leave with mouse
+    property int textsize: 15
 
     signal select()
 
@@ -36,6 +38,16 @@ Rectangle{
     function startBlink(){ blinking = true; blink.running = true; text.color = blinkcolor }
     function stopBlink(){  blinking = false; blink.running = false; text.opacity = 1.0; text.color = textcolor }
 
+    function onMouseEntered(){
+        textsize = 20
+        buttoncolor = Qt.darker(buttoncolor, 3)
+    }
+
+    function onLeaved(){
+        textsize = 15
+        buttoncolor = Qt.lighter(buttoncolor, 3)
+    }
+
     Text {
         id: text
         text: buttontext
@@ -43,7 +55,7 @@ Rectangle{
         height: parent.height
         color: down ? textcolordown : textcolor
         font.letterSpacing: 2
-        font.pointSize: 15
+        font.pointSize: textsize
         minimumPointSize: 7
         fontSizeMode: Text.Fit
         horizontalAlignment: Text.AlignHCenter
@@ -63,7 +75,10 @@ Rectangle{
 
     MouseArea{
         anchors.fill: parent
+        hoverEnabled: true
         onPressed: { if(enable) { down = true;  button.border.width = 1.5; button.color = buttondowncolor; text.color = "white" } }
         onReleased: {  button.border.width = 1 ; if(enable){ down = false; ; button.color = buttoncolor; text.color = textcolor;  select() } }
+        onEntered: { onMouseEntered() }
+        onExited: {  onLeaved();  console.log( "mouse leaved button")  }
     }
 }

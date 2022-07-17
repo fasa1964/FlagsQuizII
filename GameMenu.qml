@@ -106,10 +106,11 @@ Rectangle {
                 id: btn
                 width: parent.width/2 - 10
                 height: parent.height - 2.5
-                 buttontext: qsTr( "Continent" )
-                textcolor: "steelblue"
+                buttontext: qsTr( "Continent" )
+                textcolor: enable ? "steelblue" : "gray"
                 buttoncolor: "white"
                 buttondowncolor: "steelblue"
+                enable: false
                 onSelect: {  game.startGame("Continent");  gametype = buttontext; gameSelect()  }
             }
         }
