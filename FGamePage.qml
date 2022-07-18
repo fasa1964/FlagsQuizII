@@ -16,6 +16,8 @@ Rectangle{
     property int delay: 20
     property int wfill: 0
 
+    signal bonusCleared()
+
 
     function startBlink(key){
         if(key === "A")
@@ -59,17 +61,16 @@ Rectangle{
 
             bonus.startAnimate()
 
-            arrayBonus.append({"name": bonus.bonustext, "xvalue": xvalue })
+            array.push(bonus)
         }
     }
 
-//    function bonusAnimate(){
-//        bonus.startAnimate()
-//    }
+    function deleteBonus(){
+        for(var i = 0; i < array.length; i++)
+            array[i].clearBonus()
 
-//    function bonusClearAnimate(){
-//        bonus.closeAnimate()
-//    }
+        bonusCleared()
+    }
 
     // timecounter for questions
     function timeout(){

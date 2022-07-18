@@ -1,4 +1,5 @@
 import QtQuick 2.0
+
 Rectangle {
     id: appmenu
 
@@ -77,8 +78,10 @@ Rectangle {
             onSelect: {
 
                 gamepage.closeGame()
-                gamemenu.openPage()
-                imageOn()
+                gamepage.deleteBonus()
+
+                //gamemenu.openPage()
+                //imageOn()
             }
         }
 
@@ -91,5 +94,7 @@ Rectangle {
             onSelect: { Qt.quit() }
         }
     }
+
+
 
 }

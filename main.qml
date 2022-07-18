@@ -19,15 +19,15 @@ Window {
     property int bonuscounter: 0
     property int xvalue: 0
 
-    ListModel{
-        id: arrayBonus
+    property var array: []
 
-    }
 
     function startGame(){
 
         questioncounter = 0
         points = 0
+        bonuscounter = 0
+        xvalue = 0
         gamemenu.closePage()
         imageOff();
         gamepage.openGame();
@@ -196,22 +196,28 @@ Window {
 
         FGamePage{
             id: gamepage
-        }
+            onBonusCleared: {
+                gamemenu.openPage()
+                imageOn()
 
-    }
-
-    Item{
-        id: container
-
-        Component.onCompleted: {
-            var item = Qt.createComponent("FBonus.qml")
-            for(var i = 0; i < 5; i++){
-                var object = item.createObject(container)
-
+                menu.closeMenu()
             }
-
         }
+
     }
+
+//    Item{
+//        id: container
+
+//        Component.onCompleted: {
+//            var item = Qt.createComponent("FBonus.qml")
+//            for(var i = 0; i < 5; i++){
+//                var object = item.createObject(container)
+
+//            }
+
+//        }
+//    }
 
     Component.onCompleted: {
 

@@ -30,6 +30,10 @@ Rectangle {
           panimation.running = true
     }
 
+    function clearBonus(){
+        clearanimation.running = true
+    }
+
 
     ParallelAnimation{
         id: panimation
@@ -52,6 +56,32 @@ Rectangle {
             target: bonus
             property: "opacity"
             to: 1.0
+            duration: 200
+            easing.type: Easing.InOutCubic
+        }
+    }
+
+    ParallelAnimation{
+        id: clearanimation
+
+        NumberAnimation {
+            target: bonus
+            property: "x"
+            to: 0
+            duration: 200
+            easing.type: Easing.InOutQuad
+        }
+        NumberAnimation {
+            target: bonus
+            property: "y"
+            to: 0
+            duration: 200
+            easing.type: Easing.InOutBounce
+        }
+        NumberAnimation {
+            target: bonus
+            property: "opacity"
+            to: 0.0
             duration: 200
             easing.type: Easing.InOutCubic
         }
