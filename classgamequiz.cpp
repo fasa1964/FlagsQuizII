@@ -44,6 +44,9 @@ ClassGameQuiz::ClassGameQuiz(QObject *parent)
     bonusMap.insert(10, "16.000€");
     bonusMap.insert(11, "32.000€");
     bonusMap.insert(12, "64.000€");
+    bonusMap.insert(13, "125.000€");
+    bonusMap.insert(14, "500.000€");
+    bonusMap.insert(15, "1M €");
 
 }
 
