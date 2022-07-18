@@ -75,6 +75,7 @@ private slots:
 
 private:
 
+
     bool m_countriesFile;
     QMap<QString, QString> codesMap;
 

@@ -78,7 +78,7 @@ Rectangle{
         hoverEnabled: true
         onPressed: { if(enable) { down = true;  button.border.width = 1.5; button.color = buttondowncolor; text.color = "white" } }
         onReleased: {  button.border.width = 1 ; if(enable){ down = false; ; button.color = buttoncolor; text.color = textcolor;  select() } }
-        onEntered: { onMouseEntered() }
-        onExited: {  onLeaved();  console.log( "mouse leaved button")  }
+        onEntered: { /*onMouseEntered()*/ }
+        onExited: { /* onLeaved()*/ }
     }
 }

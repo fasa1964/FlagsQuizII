@@ -5,6 +5,7 @@ import ClassGameQuiz 1.0
 
 
 Window {
+    id: main
     width: 450
     height: 620
     visible: true
@@ -15,6 +16,13 @@ Window {
     property int maxquestion: 16
 
     property int points: 0
+    property int bonuscounter: 0
+    property int xvalue: 0
+
+    ListModel{
+        id: arrayBonus
+
+    }
 
     function startGame(){
 
@@ -30,7 +38,7 @@ Window {
 
         if(answer === game.solution){
             points += 10
-            gamepage.bonusAnimate()
+            gamepage.createBonus()
         }
     }
 

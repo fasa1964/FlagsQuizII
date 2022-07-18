@@ -42,14 +42,34 @@ Rectangle{
 
     function closeGame(){  close.start() }
 
+    function createBonus(){
+        var component = Qt.createComponent("FBonus.qml")
+        var bonus = component.createObject(gamepage,{"x":0, "y":0})
+        if(bonus !== 0){
+            bonuscounter++;
+            xvalue++;
+            bonus.bonustext = game.getBonusText(bonuscounter)
+            bonus.xvalue = xvalue * 30
 
-    function bonusAnimate(){
-        bonus.startAnimate()
+            if(bonuscounter === 12)
+                xvalue = 0
+
+            if(bonuscounter > 12)
+                bonus.yvalue = parent.height - 50 - bonus.height
+
+            bonus.startAnimate()
+
+            arrayBonus.append({"name": bonus.bonustext, "xvalue": xvalue })
+        }
     }
 
-    function bonusClearAnimate(){
-        bonus.closeAnimate()
-    }
+//    function bonusAnimate(){
+//        bonus.startAnimate()
+//    }
+
+//    function bonusClearAnimate(){
+//        bonus.closeAnimate()
+//    }
 
     // timecounter for questions
     function timeout(){
@@ -78,7 +98,6 @@ Rectangle{
     }
 
 
-
     // page animation
     NumberAnimation {
          id: open
@@ -99,11 +118,10 @@ Rectangle{
          onStopped: { gamepage.visible = false }
     }
 
-
     // bouns qml
-    FBonus{
-        id: bonus
-    }
+//    FBonus{
+//        id: bonus
+//    }
 
     // Position the jokers
     Row {

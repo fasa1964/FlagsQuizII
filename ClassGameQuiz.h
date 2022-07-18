@@ -37,6 +37,8 @@ public:
     Q_INVOKABLE void setJokerTel();
     Q_INVOKABLE void setJokerPub();
 
+    Q_INVOKABLE QString getBonusText(int num);
+
 
     int codes() const;
     void setCodes(int newCodes);
@@ -101,6 +103,8 @@ private:
     int m_capitals;
     int questionCounter;
 
+    // Text for bonus
+    QMap<int, QString> bonusMap;
 
 
     QString m_gameType;

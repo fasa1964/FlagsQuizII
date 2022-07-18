@@ -32,6 +32,19 @@ ClassGameQuiz::ClassGameQuiz(QObject *parent)
 
     setLanguageKey("DEU");
 
+    bonusMap.insert(1, "50€");
+    bonusMap.insert(2, "100€");
+    bonusMap.insert(3, "200€");
+    bonusMap.insert(4, "300€");
+    bonusMap.insert(5, "500€");
+    bonusMap.insert(6, "1.000€");
+    bonusMap.insert(7, "2.000€");
+    bonusMap.insert(8, "4.000€");
+    bonusMap.insert(9, "8.000€");
+    bonusMap.insert(10, "16.000€");
+    bonusMap.insert(11, "32.000€");
+    bonusMap.insert(12, "64.000€");
+
 }
 
 int ClassGameQuiz::codes() const
@@ -287,6 +300,11 @@ void ClassGameQuiz::setJokerPub()
             emit setJokerPublic(key);
         }
     }
+}
+
+QString ClassGameQuiz::getBonusText(int num)
+{
+    return bonusMap.value(num);
 }
 
 int ClassGameQuiz::checkFlagsCount()

@@ -18,6 +18,9 @@ ClassSetupFlags::ClassSetupFlags(QObject *parent)
     setDownloadSpeed(0);
     setTotalBytes(0);
     setReceivedBytes(0);
+
+
+
 }
 
 void ClassSetupFlags::startDownloadGamesData(const QString &type)

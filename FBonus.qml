@@ -3,8 +3,8 @@ import QtQuick
 Rectangle {
     id: bonus
 
-    height: 40
-    width: 70
+    height: 35
+    width: 65
     radius: 5
     color: "orange"
     opacity: 0.0
@@ -14,6 +14,8 @@ Rectangle {
 
 
     property string bonustext: "50€"
+    property int  xvalue: 30
+    property int  yvalue: parent.height-50
 
 
     Text {
@@ -21,7 +23,7 @@ Rectangle {
         text: bonustext
         anchors.centerIn: parent
         color: "blue"
-
+        font.pointSize: 12
     }
 
     function startAnimate(){
@@ -35,14 +37,14 @@ Rectangle {
         NumberAnimation {
             target: bonus
             property: "x"
-            to: 30
+            to: xvalue
             duration: 800
             easing.type: Easing.InOutQuad
         }
         NumberAnimation {
             target: bonus
             property: "y"
-            to: parent.height-50
+            to: yvalue
             duration: 800
             easing.type: Easing.InOutBounce
         }
