@@ -53,11 +53,11 @@ Rectangle{
             bonus.bonustext = game.getBonusText(bonuscounter)
             bonus.xvalue = xvalue * 30
 
-            if(bonuscounter === 12)
+            if(bonuscounter === 10)
                 xvalue = 0
 
-            if(bonuscounter > 12)
-                bonus.yvalue = parent.height - 50 - bonus.height
+            if(bonuscounter > 10)
+                bonus.yvalue = gamepage.height - 50 - bonus.height
 
             bonus.startAnimate()
 
@@ -119,10 +119,6 @@ Rectangle{
          onStopped: { gamepage.visible = false }
     }
 
-    // bouns qml
-//    FBonus{
-//        id: bonus
-//    }
 
     // Position the jokers
     Row {
@@ -330,7 +326,7 @@ Rectangle{
 
     Text{
         id: pointsText
-        text: points
+        text: game.getBonusText(bonuscounter)
         font.pointSize: 25
         color: "blue"
         z:2
